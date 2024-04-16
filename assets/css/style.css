@@ -1,0 +1,414 @@
+@charset "UTF-8";
+
+/* ========================================================== 
+                            Resets
+========================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ========================================================== 
+                Variables / Custom Properties
+========================================================== */
+
+:root {
+  --accentHeadline: rgb(221, 45, 130);
+  --accentInput: rgb(45, 127, 221);
+  --accentOutput: rgb(45, 127, 221);
+  --accentOutputSoft: rgb(94, 153, 221);
+  --checkedOption: rgb(45, 127, 221);
+  --checkedOptionSoft: rgb(94, 153, 221);
+  --buttonBg: rgb(45, 127, 221);
+  --fontColor: rgb(255, 255, 255);
+  --inputContainerBg: rgba(187, 200, 220, 0.7);
+  --wrapperBg: rgba(255, 255, 255, 0.5);
+  --inputBg: rgb(255, 255, 255);
+}
+
+/* ========================================================== 
+                            Fonts
+========================================================== */
+
+@font-face {
+  font-family: "Lato";
+  src: url("./../fonts/Lato-Regular.ttf");
+}
+
+/* ========================================================== 
+                        Body und Wrapper
+========================================================== */
+
+body {
+  font-family: Lato;
+  background: rgb(13, 17, 23) url("./../images/background.jpg") center / cover
+    no-repeat fixed;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.idealweight__wrapper,
+.calories__wrapper,
+.vat__wrapper {
+  position: absolute;
+  transform: translate(-100vw, 150px);
+  width: clamp(350px, 50%, 550px);
+  padding-block: 20px;
+  padding-inline: 20px;
+  border-radius: 10px;
+  background: var(--wrapperBg);
+  transition: all 1.5s ease-in-out 0s;
+  opacity: 0;
+  filter: blur(10px);
+}
+
+/* ========================================================== 
+                          Global Content
+========================================================== */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: var(--wrapperBg);
+  padding: 20px;
+}
+
+button {
+  padding: 10px 15px;
+  min-width: 225px;
+  background: var(--buttonBg);
+  color: var(--fontColor);
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 0.7rem;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  -webkit-filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.5));
+}
+
+.active {
+  background: var(--accentHeadline);
+}
+
+.calc__show {
+  transform: translate(0, 150px);
+  opacity: 1;
+  filter: blur(0);
+}
+
+h2 {
+  font-size: 1.75rem;
+  padding-block: 10px;
+  background-color: var(--accentHeadline);
+  text-align: center;
+  color: var(--fontColor);
+  border-radius: 5px;
+  margin-block-end: 20px;
+  letter-spacing: 2px;
+  padding-inline: 5%;
+}
+
+label {
+  font-weight: 600;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+input {
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+input[type="number"] {
+  border-radius: 4px;
+  position: relative;
+  outline: none;
+  background: url("./../images/number_arrows.svg") center right / contain
+    no-repeat;
+  caret-color: var(--accentInput);
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  border-width: 0px;
+  margin: 0;
+  border-left: 2px solid var(--accentInput);
+  height: 40px;
+  width: 17px;
+  cursor: pointer;
+}
+
+div.radio {
+  display: flex;
+  flex-wrap: wrap;
+  padding-block: 15px;
+  margin-bottom: 10px;
+}
+
+div.radio label {
+  padding-inline: 10px;
+  padding-block: 5px;
+}
+
+input:not(input[type="radio"]) {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid var(--accentInput);
+  width: 100%;
+  background-color: var(--inputBg);
+}
+
+input[type="radio"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  background: url("./../images/radio_unchecked.png") center / contain no-repeat;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+input[type="radio"]:checked {
+  background: url("./../images/radio_checked.png") center / contain no-repeat;
+  aspect-ratio: 1;
+}
+
+div input[type="submit"] {
+  padding: 15px;
+  background: var(--buttonBg);
+  color: var(--fontColor);
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 10px 0 20px 0;
+  cursor: pointer;
+}
+
+.idealweight__calc input[type="submit"] {
+  margin: 10px 0 0 0;
+}
+
+.idealweight__output,
+#inputErrorOutput,
+#selectErrorOutput {
+  display: none;
+  color: var(--fontColor);
+  background-color: var(--accentOutput);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.idealweight__output {
+  margin-top: 20px;
+}
+
+.idealweight__output span{
+  font-weight: 600;
+}
+
+#inputErrorOutput,
+#selectErrorOutput {
+  margin-block-end: 20px;
+}
+/* ========================================================== 
+              Specific content Calorie calculator
+========================================================== */
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font-size: 1rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 2px solid var(--accentInput);
+  width: 100%;
+  outline: none;
+  padding-inline-end: 60px;
+}
+
+select option:first-of-type {
+  background: var(--checkedOption);
+  color: var(--fontColor);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+select option:checked:not(:first-of-type) {
+  background: var(--checkedOptionSoft);
+  color: var(--fontColor);
+}
+
+.select:after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 10px;
+  background: var(--accentInput);
+  color: var(--fontColor);
+  padding: 11px 15px;
+  pointer-events: none;
+  border-radius: 5px;
+}
+
+.select {
+  position: relative;
+}
+
+.output {
+  display: grid;
+  grid-template-columns: 45% repeat(2, 1fr);
+  grid-template-rows: repeat(3, 30px);
+  color: var(--fontColor);
+  font-weight: 900;
+  background: var(--accentOutputSoft);
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  overflow: hidden;
+}
+
+.output > p:nth-child(9n + 1),
+.output > p:nth-child(9n + 2),
+.output > p:nth-child(9n + 3) {
+  background: var(--accentOutput);
+  padding-block-start: 10px;
+  padding-inline: 10px;
+  max-width: 450px;
+  margin-inline: -10px;
+  margin-block-start: -10px;
+}
+
+/* ========================================================== 
+              Specific content Vat calculator
+========================================================== */
+
+label span {
+  color: red;
+}
+
+label.netAmount {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.vat__wrapper h3 {
+  padding-bottom: 15px;
+}
+
+form div:not(.idealweight__calc, .calc, .vat__calc, .select) {
+  background: var(--inputContainerBg);
+  padding-block: 15px 5px;
+  padding-inline: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.vat__wrapper .netGross__wrapper,
+.vat__wrapper .vatRate__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-inline: -20px;
+  padding-block: 0;
+  background: none;
+}
+
+.vat__result__wrapper div {
+  background: var(--accentOutputSoft);
+  padding-block: 10px;
+  padding-inline: 10px;
+  border-radius: 5px;
+}
+
+.vat__result__wrapper div:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.vat__result__wrapper h3 {
+  color: var(--fontColor);
+  font-size: 1.1rem;
+  background: var(--accentOutput);
+  padding: 15px 10px;
+  margin: -10px;
+  border-radius: 5px 5px 0 0;
+}
+
+.vat__result__wrapper p {
+  color: var(--fontColor);
+  font-weight: 900;
+  background: var(--accentOutputSoft);
+  font-size: 1.1rem;
+  margin-block-start: 15px;
+  padding-block: 5px;
+}
+
+/* ========================================================== 
+                          Media Queries
+========================================================== */
+
+@media screen and (max-width: 800px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .idealweight__wrapper,
+  .calories__wrapper,
+  .vat__wrapper {
+    transform: translate(0, -100vh);
+  }
+
+  .calc__show {
+    transform: translate(0, 200px);
+  }
+
+  div.radio label:first-of-type {
+    flex-basis: 100%;
+    padding-inline: 0;
+    padding-block-end: 15px;
+  }
+}
